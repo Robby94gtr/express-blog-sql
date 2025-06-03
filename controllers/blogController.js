@@ -9,14 +9,24 @@ const index = (req, res) => {
         if (err) {
             return res.status(500).json({ error: "Database query failed" })
             //restituisco il codice di stato
-        res.sendStatus(204)
+            res.sendStatus(204)
         }
         res.json(results)
     })
 }
 
 const show = (req, res) => {
-    res.send("post con id: " + req.params.id)
+    // recupero id
+    const id = req.params.id
+    //query
+    const sql = "SELECT * FROM posts WHERE id =?"
+    //eseguo la query
+    connection.query(sql, [id], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: "Database query failed" })
+        }
+        res.json(results)
+    });
 }
 
 const destroy = (req, res) => {
