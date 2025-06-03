@@ -8,6 +8,8 @@ const index = (req, res) => {
     connection.query(sql, (err, results) => {
         if (err) {
             return res.status(500).json({ error: "Database query failed" })
+            //restituisco il codice di stato
+        res.sendStatus(204)
         }
         res.json(results)
     })
